@@ -2,6 +2,7 @@ package com.luizmrd.config;
 
 import com.luizmrd.entities.Order;
 import com.luizmrd.entities.User;
+import com.luizmrd.entities.enuns.OrderStatus;
 import com.luizmrd.repositories.OrderRepository;
 import com.luizmrd.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class TestConfig implements CommandLineRunner {
         User u1 = new User(null,"Maria","maria@gmail","2121212","323232");
         User u2 = new User(null,"Lucas","lucas@gmail","31211212","323232");
 
-        Order o1 = new Order(null, Instant.parse("2025-05-20T19:53:07Z"),u1);
-        Order o2 = new Order(null, Instant.parse("2025-05-21T20:53:07Z"),u2);
+        Order o1 = new Order(null, Instant.parse("2025-05-20T19:53:07Z"), OrderStatus.PAID,u1);
+        Order o2 = new Order(null, Instant.parse("2025-05-21T20:53:07Z"), OrderStatus.WAITING_PAYMENT,u2);
 
 
         userRepository.saveAll(Arrays.asList(u1,u2));
