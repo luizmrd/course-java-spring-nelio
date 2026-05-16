@@ -1,8 +1,10 @@
 package com.luizmrd.config;
 
+import com.luizmrd.entities.Category;
 import com.luizmrd.entities.Order;
 import com.luizmrd.entities.User;
 import com.luizmrd.entities.enuns.OrderStatus;
+import com.luizmrd.repositories.CategoryRepository;
 import com.luizmrd.repositories.OrderRepository;
 import com.luizmrd.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,16 @@ public class TestConfig implements CommandLineRunner {
     private UserRepository userRepository;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
         User u1 = new User(null,"Maria","maria@gmail","2121212","323232");
         User u2 = new User(null,"Lucas","lucas@gmail","31211212","323232");
 
@@ -31,6 +40,7 @@ public class TestConfig implements CommandLineRunner {
         Order o2 = new Order(null, Instant.parse("2025-05-21T20:53:07Z"), OrderStatus.WAITING_PAYMENT,u2);
 
 
+        categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2));
 
