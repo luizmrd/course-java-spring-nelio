@@ -2,17 +2,14 @@ package com.luizmrd.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.luizmrd.entities.enuns.OrderStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -31,6 +28,9 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name ="client_id")
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
 
     public Order(Long id, Instant moment,OrderStatus orderStatus, User client) {
@@ -68,6 +68,10 @@ public class Order implements Serializable {
 
     public OrderStatus getOrderStatus() {
         return OrderStatus.valueOf(orderStatus);
+    }
+
+    public Set<OrderItem> getItems(){
+        return items;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {

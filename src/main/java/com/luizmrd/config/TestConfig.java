@@ -1,14 +1,8 @@
 package com.luizmrd.config;
 
-import com.luizmrd.entities.Category;
-import com.luizmrd.entities.Order;
-import com.luizmrd.entities.Product;
-import com.luizmrd.entities.User;
+import com.luizmrd.entities.*;
 import com.luizmrd.entities.enuns.OrderStatus;
-import com.luizmrd.repositories.CategoryRepository;
-import com.luizmrd.repositories.OrderRepository;
-import com.luizmrd.repositories.ProductRepository;
-import com.luizmrd.repositories.UserRepository;
+import com.luizmrd.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +24,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -66,6 +63,15 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2));
+
+        OrderItem oi1 = new OrderItem(o1,p1,2,p1.getPrince());
+        OrderItem oi2 = new OrderItem(o1,p3,1,p3.getPrince());
+        OrderItem oi3 = new OrderItem(o2,p3,2,p3.getPrince());
+        OrderItem oi4 = new OrderItem(o2,p5,2,p5.getPrince());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+
+
 
 
     }
